@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushukcha O'yini</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #gameArea {
+            width: 400px;
+            height: 400px;
+            background-color: #fff;
+            border: 2px solid #000;
+            position: relative;
+        }
+        .cat {
+            width: 50px;
+            height: 50px;
+            background-image: url('cat.png');
+            background-size: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .coin {
+            width: 20px;
+            height: 20px;
+            background-image: url('coin.png');
+            background-size: cover;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea">
+        <div class="cat" id="cat"></div>
+        <div class="coin" id="coin"></div>
+    </div>
+
+    <script>
+        const cat = document.getElementById('cat');
+        const gameArea = document.getElementById('gameArea');
+        const coin = document.getElementById('coin');
+        const step = 10; // Step size for each move
+
+        function getRandomPosition(element) {
+            const x = Math.floor(Math.random() * (gameArea.clientWidth - element.clientWidth));
+            const y = Math.floor(Math.random() * (gameArea.clientHeight - element.clientHeight));
+            return { x, y };
+        }
+
+        function placeCoin() {
+            const position = getRandomPosition(coin);
+            coin.style.left = `${position.x}px`;
+            coin.style.top = `${position.y}px`;
+        }
+
+        function checkCollision(cat, coin) {
+            const catRect = cat.getBoundingClientRect();
+            const coinRect = coin.getBoundingClientRect();
+
+            return !(
+                catRect.top > coinRect.bottom ||
+                catRect.bottom < coinRect.top ||
+                catRect.left > coinRect.right ||
+                catRect.right < coinRect.left
+            );
+        }
+
+        function moveCat(dx, dy) {
+            const currentLeft = parseInt(cat.style.left || 0);
+            const currentTop = parseInt(cat.style.top || 0);
+            const newLeft = Math.min(Math.max(currentLeft + dx, 0), gameArea.clientWidth - cat.clientWidth);
+            const newTop = Math.min(Math.max(currentTop + dy, 0), gameArea.clientHeight - cat.clientHeight);
+            cat.style.left = `${newLeft}px`;
+            cat.style.top = `${newTop}px`;
+
+            if (checkCollision(cat, coin)) {
+                placeCoin();
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'a':
+                    moveCat(-step, 0);
+                    break;
+                case 'd':
+                    moveCat(step, 0);
+                    break;
+                case 'w':
+                    moveCat(0, -step);
+                    break;
+                case 's':
+                    moveCat(0, step);
+                    break;
+            }
+        });
+
+        placeCoin();
+    </script>
+</body>
+</html>

@@ -2,148 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
-    <title>Ludiflex | Login & Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Click Counter Game and Calculator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .calculator {
+            margin-top: 40px;
+        }
+        .calculator input {
+            width: 200px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .calculator button {
+            width: 50px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
- <div class="wrapper">
-    <nav class="nav">
-        <div class="nav-logo">
-            <p>Ibrohim DESIGN</p>
-        </div>
-        <div class="nav-menu" id="navMenu">
-            <ul>
-                <li><a href="#" class="link active">Uy</a></li>
-                <li><a href="#" class="link">Blog</a></li>
-                <li><a href="#" class="link">Xizmatlar</a></li>
-                <li><a href="#" class="link">Haqida</a></li>
-            </ul>
-        </div>
-        <div class="nav-button">
-            <button class="btn white-btn" id="loginBtn" onclick="login()">Tizimga kirish</button>
-            <button class="btn" id="registerBtn" onclick="register()">Ro'yxatdan o'tish</button>
-        </div>
-        <div class="nav-menu-btn">
-            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
-        </div>
-    </nav>
+    <h1>Click Counter Game</h1>
+    <p>Clicks: <span id="clickCount">0</span></p>
+    <button onclick="incrementCounter()">Click me!</button>
 
-<!----------------------------- Form box ----------------------------------->    
-    <div class="form-box">
-        
-        <!------------------- login form -------------------------->
-
-        <div class="login-container" id="login">
-            <div class="top">
-                <span>Sizda akkount yo'qmi?<a href="#" onclick="register()">Ro'yxatdan o'tish</a></span>
-                <header>Tizimga kirish</header>
-            </div>
-            <div class="input-box">
-                <input type="text" class="input-field" placeholder="Foydalanovchi nomi yoki email pochta">
-                <i class="bx bx-user"></i>
-            </div>
-            <div class="input-box">
-                <input type="password" class="input-field" placeholder="Parol">
-                <i class="bx bx-lock-alt"></i>
-            </div>
-            <div class="input-box">
-                <input type="submit" class="submit" value="Tizimga kirish">
-            </div>
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="login-check">
-                    <label for="login-check"> Meni eslaysizmi</label>
-                </div>
-                <div class="two">
-                    <label><a href="#">Parolni unutdingizmi?</a></label>
-                </div>
-            </div>
-        </div>
-
-        <!------------------- registration form -------------------------->
-        <div class="register-container" id="register">
-            <div class="top">
-                <span>Hisobingiz bormi? <a href="#" onclick="login()">Tizimga kirish</a></span>
-                <header>Ro'yxatdan o'tish</header>
-            </div>
-            <div class="two-forms">
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Ism">
-                    <i class="bx bx-user"></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Familiya">
-                    <i class="bx bx-user"></i>
-                </div>
-            </div>
-            <div class="input-box">
-                <input type="text" class="input-field" placeholder="Elektron pochta">
-                <i class="bx bx-envelope"></i>
-            </div>
-            <div class="input-box">
-                <input type="password" class="input-field" placeholder="Parol">
-                <i class="bx bx-lock-alt"></i>
-            </div>
-            <div class="input-box">
-                <input type="submit" class="submit" value="Ro'yxatdan o'tish">
-            </div>
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="register-check">
-                    <label for="register-check"> Meni eslaysizmi</label>
-                </div>
-                <div class="two">
-                    <label><a href="#">Qoida & shartlar</a></label>
-                </div>
-            </div>
-        </div>
+    <div class="calculator">
+        <h2>Calculator</h2>
+        <input type="text" id="calcInput" disabled>
+        <br>
+        <button onclick="appendNumber(1)">1</button>
+        <button onclick="appendNumber(2)">2</button>
+        <button onclick="appendNumber(3)">3</button>
+        <button onclick="appendOperator('+')">+</button>
+        <br>
+        <button onclick="appendNumber(4)">4</button>
+        <button onclick="appendNumber(5)">5</button>
+        <button onclick="appendNumber(6)">6</button>
+        <button onclick="appendOperator('-')">-</button>
+        <br>
+        <button onclick="appendNumber(7)">7</button>
+        <button onclick="appendNumber(8)">8</button>
+        <button onclick="appendNumber(9)">9</button>
+        <button onclick="appendOperator('*')">*</button>
+        <br>
+        <button onclick="clearInput()">C</button>
+        <button onclick="appendNumber(0)">0</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="appendOperator('/')">/</button>
     </div>
-</div>   
 
+    <script>
+        let count = 0;
+        function incrementCounter() {
+            count++;
+            document.getElementById('clickCount').innerText = count;
+        }
 
-<script>
-   
-   function myMenuFunction() {
-    var i = document.getElementById("navMenu");
+        let calcInput = document.getElementById('calcInput');
+        let currentInput = '';
 
-    if(i.className === "nav-menu") {
-        i.className += " responsive";
-    } else {
-        i.className = "nav-menu";
-    }
-   }
- 
-</script>
+        function appendNumber(number) {
+            currentInput += number;
+            calcInput.value = currentInput;
+        }
 
-<script>
+        function appendOperator(operator) {
+            currentInput += ' ' + operator + ' ';
+            calcInput.value = currentInput;
+        }
 
-    var a = document.getElementById("loginBtn");
-    var b = document.getElementById("registerBtn");
-    var x = document.getElementById("login");
-    var y = document.getElementById("register");
+        function clearInput() {
+            currentInput = '';
+            calcInput.value = currentInput;
+        }
 
-    function login() {
-        x.style.left = "4px";
-        y.style.right = "-520px";
-        a.className += " white-btn";
-        b.className = "btn";
-        x.style.opacity = 1;
-        y.style.opacity = 0;
-    }
-
-    function register() {
-        x.style.left = "-510px";
-        y.style.right = "5px";
-        a.className = "btn";
-        b.className += " white-btn";
-        x.style.opacity = 0;
-        y.style.opacity = 1;
-    }
-
-</script>
-
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput).toString();
+                calcInput.value = currentInput;
+            } catch (error) {
+                calcInput.value = 'Error';
+                currentInput = '';
+            }
+        }
+    </script>
 </body>
 </html>
